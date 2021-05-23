@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './models/task.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -28,11 +30,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _inputController = TextEditingController();
+  List<Task> _tasks = [];
   var myString = '';
 
   @override
+  void initState() {
+    print(_tasks);
+    super.initState();
+  }
+
+  @override
   void dispose() {
-    // TODO: implement dispose
     _inputController.dispose();
     super.dispose();
   }
@@ -57,9 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {}); // we need to trigger changing state
                 },
               ),
-            ),
-            Text(
-              _inputController.text,
             ),
           ],
         ),
