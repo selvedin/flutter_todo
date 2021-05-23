@@ -49,6 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addTaskToList() {
     if (_inputController.text.isNotEmpty) {
       _tasks.add(Task(_inputController.text, DateTime.now()));
+      setState(() {
+        _inputController.text = '';
+        _errorText = null;
+      });
     } else {
       setState(() {
         _errorText = "This field is required";
