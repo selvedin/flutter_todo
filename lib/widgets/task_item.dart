@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../screens/finished_tasks_screen.dart';
 
 class TaskItem extends StatelessWidget {
   final String id;
@@ -17,10 +18,19 @@ class TaskItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) {
+                  return FinishedTasksScreen();
+                }),
+              );
+            },
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Text(
