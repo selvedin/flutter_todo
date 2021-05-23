@@ -32,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var _inputController = TextEditingController();
   List<Task> _tasks = [];
   var myString = '';
+  String _errorText = null;
 
   @override
   void initState() {
@@ -48,6 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addTaskToList() {
     if (_inputController.text.isNotEmpty) {
       _tasks.add(Task(_inputController.text, DateTime.now()));
+    } else {
+      setState(() {
+        _errorText = "This field is required";
+      });
     }
     _printTasks();
   }
@@ -78,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       decoration: InputDecoration(
                         hintText: 'Write something ...',
                         labelText: 'Title',
+                        errorText: _errorText,
                       ),
                       onChanged: (value) {
                         setState(() {}); // we need to trigger changing state
