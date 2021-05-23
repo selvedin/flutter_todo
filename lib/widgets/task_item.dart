@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TaskItem extends StatelessWidget {
   final String title;
@@ -20,7 +21,7 @@ class TaskItem extends StatelessWidget {
             ),
           ),
           Text(
-            createdAt.toString(),
+            DateFormat.yMEd().format(createdAt),
           ),
           Icon(isFinished ? Icons.check : Icons.timer),
         ],
