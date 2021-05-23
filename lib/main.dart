@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Task> _tasks = [];
   var myString = '';
   String _errorText;
-  String _createdAt = DateFormat("dd-MM-yyyy hh:mm a").format(DateTime.now());
+  DateTime _createdAt = DateTime.now();
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addTaskToList() {
     if (_inputController.text.isNotEmpty) {
-      _tasks.add(Task(_inputController.text, DateTime.now()));
+      _tasks.add(Task(_inputController.text, _createdAt));
       setState(() {
         _inputController.text = '';
         _errorText = null;
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             lastDate: DateTime.now().add(Duration(days: 30)))
         .then((value) {
       setState(() {
-        _createdAt = DateFormat("dd-MM-yyyy hh:mm a").format(value);
+        _createdAt = value;
       });
     });
   }
@@ -126,7 +126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(_createdAt),
+                          Text(DateFormat('dd-MM-yyyy hh:mm a')
+                              .format(_createdAt)),
                           IconButton(
                             icon: Icon(Icons.calendar_today_outlined),
                             onPressed: _getDate,
