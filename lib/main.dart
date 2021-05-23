@@ -37,9 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 30; i++) {
       _tasks.add(Task('Task number ${i + 1}',
-          DateTime.now().add(Duration(seconds: i + 1))));
+          DateTime.now().add(Duration(minutes: i + 1))));
     }
     super.initState();
   }
@@ -77,53 +77,52 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              Card(
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: _inputController,
-                        decoration: InputDecoration(
-                          hintText: 'Write something ...',
-                          labelText: 'Title',
-                          errorText: _errorText,
+      body: Container(
+        child: Column(
+          children: [
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _inputController,
+                      decoration: InputDecoration(
+                        hintText: 'Write something ...',
+                        labelText: 'Title',
+                        errorText: _errorText,
+                      ),
+                      onChanged: (value) {
+                        setState(() {}); // we need to trigger changing state
+                      },
+                    ),
+                    Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: _addTaskToList,
+                          child: Text('Add to list'),
                         ),
-                        onChanged: (value) {
-                          setState(() {}); // we need to trigger changing state
-                        },
-                      ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: _addTaskToList,
-                            child: Text('Add to list'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                child: Column(
-                  children: _tasks
-                      .map((task) => TaskItem(
-                          title: task.title,
-                          createdAt: task.createdAt,
-                          isFinished: task.isFinished))
-                      .toList(),
-                ),
-              )
-            ],
-          ),
+            ),
+            Container(
+              height: 300,
+              child: ListView(
+                children: _tasks
+                    .map((task) => TaskItem(
+                        title: task.title,
+                        createdAt: task.createdAt,
+                        isFinished: task.isFinished))
+                    .toList(),
+              ),
+            )
+          ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

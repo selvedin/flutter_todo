@@ -21,7 +21,7 @@ class TaskItem extends StatelessWidget {
             ),
           ),
           Text(
-            DateFormat.yMEd().format(createdAt),
+            DateFormat('dd-MM-yyyy hh:mm a').format(createdAt),
           ),
           Icon(isFinished ? Icons.check : Icons.timer),
         ],
