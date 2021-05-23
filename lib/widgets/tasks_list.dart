@@ -65,7 +65,8 @@ class _TasksListState extends State<TasksList> {
                     id: task.id,
                     title: task.title,
                     createdAt: task.createdAt,
-                    isFinished: task.isFinished),
+                    isFinished: task.isFinished,
+                    priority: task.priority.toString().split('.')[1]),
               ))
           .toList(),
     );

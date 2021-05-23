@@ -35,6 +35,7 @@ class FinishedTasksScreen extends StatelessWidget {
                   title: finished[index].title,
                   createdAt: finished[index].createdAt,
                   isFinished: finished[index].isFinished,
+                  priority: finished[index].priority.toString().split('.')[1],
                 ),
               )
             : Container(

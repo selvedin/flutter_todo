@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/tasks.dart';
 import 'package:intl/intl.dart';
+import '../models/task.dart';
 
 class TaskCard extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _TaskCardState extends State<TaskCard> {
   var _inputController = TextEditingController();
   DateTime _createdAt = DateTime.now();
   String _errorText;
+  String _priority = "LOW";
 
   @override
   void initState() {
@@ -42,6 +44,19 @@ class _TaskCardState extends State<TaskCard> {
     });
   }
 
+  TaskPriority getPriority() {
+    switch (_priority) {
+      case "NORMAL":
+        return TaskPriority.NORMAL;
+      case "HIGH":
+        return TaskPriority.HIGH;
+      case "URGENT":
+        return TaskPriority.URGENT;
+      default:
+        return TaskPriority.LOW;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,6 +78,33 @@ class _TaskCardState extends State<TaskCard> {
                   //_updateState(); // we need to trigger changing state
                 },
               ),
+              DropdownButton(
+                  hint: Text('Priority'),
+                  isExpanded: true,
+                  value: _priority,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _priority = newValue;
+                    });
+                    print(newValue);
+                  },
+                  items: TaskPriority.values
+                      .map<DropdownMenuItem<String>>((value) {
+                    return DropdownMenuItem<String>(
+                      value: value.toString().split(".")[1].toString(),
+                      child: Text(
+                        value.toString().split(".")[1].toString(),
+                      ),
+                    );
+                  }).toList()),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -80,8 +122,11 @@ class _TaskCardState extends State<TaskCard> {
                   TextButton(
                     onPressed: () {
                       if (_inputController.text.isNotEmpty) {
-                        Provider.of<Tasks>(context, listen: false)
-                            .addTask(_inputController.text, _createdAt, false);
+                        Provider.of<Tasks>(context, listen: false).addTask(
+                            _inputController.text,
+                            _createdAt,
+                            false,
+                            getPriority());
                         setState(() {
                           _errorText = null;
                           _inputController.text = '';

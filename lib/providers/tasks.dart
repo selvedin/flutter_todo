@@ -12,8 +12,10 @@ class Tasks with ChangeNotifier {
     return [...tasks.where((el) => el.isFinished)];
   }
 
-  void addTask(String title, DateTime date, bool isFinished) {
-    _tasks.add(Task(DateTime.now().toIso8601String(), title, date, isFinished));
+  void addTask(
+      String title, DateTime date, bool isFinished, TaskPriority priority) {
+    _tasks.add(Task(
+        DateTime.now().toIso8601String(), title, date, isFinished, priority));
     notifyListeners();
   }
 
@@ -26,7 +28,8 @@ class Tasks with ChangeNotifier {
     var ind = _tasks.indexWhere((element) => element.id == id);
     if (ind >= 0) {
       var task = _tasks.firstWhere((element) => element.id == id);
-      var newTask = Task(task.id, task.title, task.createdAt, true);
+      var newTask =
+          Task(task.id, task.title, task.createdAt, true, task.priority);
       _tasks[ind] = newTask;
       notifyListeners();
     }

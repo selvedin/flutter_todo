@@ -10,13 +10,14 @@ class TaskItem extends StatelessWidget {
   final String title;
   final DateTime createdAt;
   final bool isFinished;
+  final String priority;
 
-  TaskItem({
-    @required this.id,
-    @required this.title,
-    @required this.createdAt,
-    @required this.isFinished,
-  });
+  TaskItem(
+      {@required this.id,
+      @required this.title,
+      @required this.createdAt,
+      @required this.isFinished,
+      @required this.priority});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +43,7 @@ class TaskItem extends StatelessWidget {
           Text(
             DateFormat('dd-MM-yyyy hh:mm a').format(createdAt),
           ),
+          Text(priority),
           isFinished
               ? Icon(Icons.check)
               : IconButton(
