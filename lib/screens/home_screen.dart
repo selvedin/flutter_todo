@@ -92,6 +92,40 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<bool> confirmTaskDeleting() {
+    return showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: Text('Deleting task'),
+              content: Row(
+                children: [
+                  Text('Are You sure?'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.warning,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(false);
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop(true);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,7 +212,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           key: ValueKey(task.id),
                           background:
                               Container(color: Theme.of(context).errorColor),
-                          onDismissed: (DismissDirection direction) {
+                          direction: DismissDirection.endToStart,
+                          confirmDismiss: (_) {
+                            return confirmTaskDeleting();
+                          },
+                          onDismissed: (_) {
                             setState(() {
                               _tasks.removeWhere((el) => el.id == task.id);
                             });
