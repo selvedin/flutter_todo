@@ -174,12 +174,22 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 300,
               child: ListView(
                 children: _tasks
-                    .map((task) => TaskItem(
-                          id: task.id,
-                          title: task.title,
-                          createdAt: task.createdAt,
-                          isFinished: task.isFinished,
-                          setTaskDone: setTaskDone,
+                    .map((task) => Dismissible(
+                          key: ValueKey(task.id),
+                          background:
+                              Container(color: Theme.of(context).errorColor),
+                          onDismissed: (DismissDirection direction) {
+                            setState(() {
+                              _tasks.removeWhere((el) => el.id == task.id);
+                            });
+                          },
+                          child: TaskItem(
+                            id: task.id,
+                            title: task.title,
+                            createdAt: task.createdAt,
+                            isFinished: task.isFinished,
+                            setTaskDone: setTaskDone,
+                          ),
                         ))
                     .toList(),
               ),
