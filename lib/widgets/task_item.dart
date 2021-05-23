@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../screens/finished_tasks_screen.dart';
 
 class TaskItem extends StatelessWidget {
   final String id;
