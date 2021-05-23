@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _inputController = TextEditingController();
+  var _inputFocus = FocusNode();
   List<Task> _tasks = [];
   var myString = '';
   String _errorText;
@@ -39,12 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    Future.delayed(Duration(microseconds: 50)).then((res) {
+      FocusScope.of(context).requestFocus(_inputFocus);
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     _inputController.dispose();
+    _inputFocus.dispose();
     super.dispose();
   }
 
@@ -98,44 +103,48 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         child: Column(
           children: [
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _inputController,
-                      decoration: InputDecoration(
-                        hintText: 'Write something ...',
-                        labelText: 'Title',
-                        errorText: _errorText,
+            Container(
+              height: 200,
+              child: Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        focusNode: _inputFocus,
+                        controller: _inputController,
+                        decoration: InputDecoration(
+                          hintText: 'Write something ...',
+                          labelText: 'Title',
+                          errorText: _errorText,
+                        ),
+                        onChanged: (value) {
+                          setState(() {}); // we need to trigger changing state
+                        },
                       ),
-                      onChanged: (value) {
-                        setState(() {}); // we need to trigger changing state
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(_createdAt),
-                        IconButton(
-                          icon: Icon(Icons.calendar_today_outlined),
-                          onPressed: _getDate,
-                        ),
-                      ],
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: _addTaskToList,
-                          child: Text('Add to list'),
-                        ),
-                      ],
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(_createdAt),
+                          IconButton(
+                            icon: Icon(Icons.calendar_today_outlined),
+                            onPressed: _getDate,
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: _addTaskToList,
+                            child: Text('Add to list'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
