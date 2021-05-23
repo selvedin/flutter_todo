@@ -13,7 +13,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'To-Do App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.grey,
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'Pattaya',
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.red.shade900,
+              ),
+            ),
       ),
       home: MyHomePage(title: 'My To-Do App'),
       routes: {

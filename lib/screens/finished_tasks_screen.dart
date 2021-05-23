@@ -38,7 +38,8 @@ class FinishedTasksScreen extends StatelessWidget {
             : Container(
                 child: Column(
                   children: [
-                    Text('No finished tasks'),
+                    Text('No finished tasks',
+                        style: Theme.of(context).textTheme.headline6),
                     Image.network(
                         'https://icons.iconarchive.com/icons/cornmanthe3rd/squareplex/512/Utilities-tasks-icon.png'),
                   ],

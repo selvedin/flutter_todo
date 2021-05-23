@@ -46,57 +46,59 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              focusNode: _inputFocus,
-              controller: _inputController,
-              decoration: InputDecoration(
-                hintText: 'Write something ...',
-                labelText: 'Title',
-                errorText: _errorText,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextField(
+                focusNode: _inputFocus,
+                controller: _inputController,
+                decoration: InputDecoration(
+                  hintText: 'Write something ...',
+                  labelText: 'Title',
+                  errorText: _errorText,
+                ),
+                onChanged: (value) {
+                  //_updateState(); // we need to trigger changing state
+                },
               ),
-              onChanged: (value) {
-                //_updateState(); // we need to trigger changing state
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(DateFormat('dd-MM-yyyy hh:mm a').format(_createdAt)),
-                IconButton(
-                  icon: Icon(Icons.calendar_today_outlined),
-                  onPressed: _getDate,
-                ),
-              ],
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    if (_inputController.text.isNotEmpty) {
-                      widget.addTaskToList(_inputController.text, _createdAt);
-                      setState(() {
-                        _errorText = null;
-                        _inputController.text = '';
-                      });
-                    } else {
-                      setState(() {
-                        _errorText = "Title is required";
-                      });
-                    }
-                  },
-                  child: Text('Add to list'),
-                ),
-              ],
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(DateFormat('dd-MM-yyyy hh:mm a').format(_createdAt)),
+                  IconButton(
+                    icon: Icon(Icons.calendar_today_outlined),
+                    onPressed: _getDate,
+                  ),
+                ],
+              ),
+              Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      if (_inputController.text.isNotEmpty) {
+                        widget.addTaskToList(_inputController.text, _createdAt);
+                        setState(() {
+                          _errorText = null;
+                          _inputController.text = '';
+                        });
+                      } else {
+                        setState(() {
+                          _errorText = "Title is required";
+                        });
+                      }
+                    },
+                    child: Text('Add to list'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
