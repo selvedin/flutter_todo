@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../models/task.dart';
 import '../widgets/task_item.dart';
+import '../screens/finished_tasks_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -99,7 +100,13 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           PopupMenuButton(
               onSelected: (selectedValue) {
-                print(selectedValue);
+                if (selectedValue == 0) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) {
+                      return FinishedTasksScreen();
+                    }),
+                  );
+                }
               },
               itemBuilder: (_) => [
                     PopupMenuItem(

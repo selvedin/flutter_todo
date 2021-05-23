@@ -19,13 +19,13 @@ class TaskItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) {
-                  return FinishedTasksScreen();
-                }),
-              );
-            },
+            // onTap: () {
+            //   Navigator.of(context).push(
+            //     MaterialPageRoute(builder: (_) {
+            //       return FinishedTasksScreen();
+            //     }),
+            //   );
+            // },
             child: Text(
               title,
               style: TextStyle(
