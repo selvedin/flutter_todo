@@ -55,14 +55,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _generateTasks() {
     for (int i = 0; i < 30; i++) {
-      _tasks.add(Task('Task number ${i + 1}',
-          DateTime.now().add(Duration(minutes: i + 1))));
+      _tasks.add(Task(DateTime.now().toIso8601String(), 'Task number ${i + 1}',
+          DateTime.now().add(Duration(minutes: i + 1)), false));
     }
   }
 
   void _addTaskToList() {
     if (_inputController.text.isNotEmpty) {
-      _tasks.add(Task(_inputController.text, _createdAt));
+      _tasks.add(Task(DateTime.now().toIso8601String(), _inputController.text,
+          _createdAt, false));
       setState(() {
         _inputController.text = '';
         _errorText = null;
@@ -73,6 +74,18 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
     _printTasks();
+  }
+
+  void setTaskDone(String id) {
+    var existingIndex = _tasks.indexWhere((task) => task.id == id);
+    var existingTask = _tasks.firstWhere((task) => task.id == id);
+    if (existingIndex >= 0) {
+      var newTask = Task(
+          existingTask.id, existingTask.title, existingTask.createdAt, true);
+      setState(() {
+        _tasks[existingIndex] = newTask;
+      });
+    }
   }
 
   void _printTasks() {
@@ -154,9 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ListView(
                 children: _tasks
                     .map((task) => TaskItem(
-                        title: task.title,
-                        createdAt: task.createdAt,
-                        isFinished: task.isFinished))
+                          id: task.id,
+                          title: task.title,
+                          createdAt: task.createdAt,
+                          isFinished: task.isFinished,
+                          setTaskDone: setTaskDone,
+                        ))
                     .toList(),
               ),
             )

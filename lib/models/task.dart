@@ -1,8 +1,9 @@
 class Task {
-  final String id = DateTime.now().toIso8601String();
+  final String id;
   final String title;
   final DateTime createdAt;
-  bool isFinished = false;
+  final bool isFinished;
 
-  Task(this.title, this.createdAt); //positional arguments
+  Task(this.id, this.title, this.createdAt,
+      this.isFinished); //positional arguments
 }

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TaskItem extends StatelessWidget {
+  final String id;
   final String title;
   final DateTime createdAt;
   final bool isFinished;
+  Function setTaskDone;
 
-  TaskItem({this.title, this.createdAt, this.isFinished});
+  TaskItem(
+      {this.id, this.title, this.createdAt, this.isFinished, this.setTaskDone});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +26,13 @@ class TaskItem extends StatelessWidget {
           Text(
             DateFormat('dd-MM-yyyy hh:mm a').format(createdAt),
           ),
-          Icon(isFinished ? Icons.check : Icons.timer),
+          isFinished
+              ? Icon(Icons.check)
+              : IconButton(
+                  icon: Icon(Icons.done),
+                  onPressed: () => setTaskDone(id),
+                  color: Colors.green,
+                ),
         ],
       ),
     );
