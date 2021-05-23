@@ -77,53 +77,53 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Card(
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _inputController,
-                      decoration: InputDecoration(
-                        hintText: 'Write something ...',
-                        labelText: 'Title',
-                        errorText: _errorText,
-                      ),
-                      onChanged: (value) {
-                        setState(() {}); // we need to trigger changing state
-                      },
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: _addTaskToList,
-                          child: Text('Add to list'),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _inputController,
+                        decoration: InputDecoration(
+                          hintText: 'Write something ...',
+                          labelText: 'Title',
+                          errorText: _errorText,
                         ),
-                      ],
-                    ),
-                  ],
+                        onChanged: (value) {
+                          setState(() {}); // we need to trigger changing state
+                        },
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: _addTaskToList,
+                            child: Text('Add to list'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  ..._tasks
+              Container(
+                child: Column(
+                  children: _tasks
                       .map((task) => TaskItem(
                           title: task.title,
                           createdAt: task.createdAt,
                           isFinished: task.isFinished))
-                      .toList()
-                ],
-              ),
-            )
-          ],
+                      .toList(),
+                ),
+              )
+            ],
+          ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
