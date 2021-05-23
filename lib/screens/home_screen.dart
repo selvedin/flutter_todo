@@ -103,7 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (selectedValue == 0) {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) {
-                      return FinishedTasksScreen();
+                      return FinishedTasksScreen(
+                          _tasks.where((task) => task.isFinished).toList());
                     }),
                   );
                 }

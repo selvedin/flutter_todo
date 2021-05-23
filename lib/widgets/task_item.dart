@@ -9,8 +9,13 @@ class TaskItem extends StatelessWidget {
   final bool isFinished;
   Function setTaskDone;
 
-  TaskItem(
-      {this.id, this.title, this.createdAt, this.isFinished, this.setTaskDone});
+  TaskItem({
+    @required this.id,
+    @required this.title,
+    @required this.createdAt,
+    @required this.isFinished,
+    this.setTaskDone,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
