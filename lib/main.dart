@@ -37,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    print(_tasks);
+    for (int i = 0; i < 100; i++) {
+      _tasks.add(Task('Task number ${i + 1}',
+          DateTime.now().add(Duration(seconds: i + 1))));
+    }
     super.initState();
   }
 
