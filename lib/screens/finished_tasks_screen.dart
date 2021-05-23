@@ -10,9 +10,8 @@ class FinishedTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = Provider.of<Tasks>(context).tasks;
-    final finished = [...tasks.where((el) => el.isFinished == true)];
-    print(finished.length);
+    final finished = Provider.of<Tasks>(context).finished;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Finished tasks'),
