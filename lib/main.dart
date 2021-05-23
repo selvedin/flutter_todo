@@ -45,6 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  void _addTaskToList() {
+    _tasks.add(Task(_inputController.text, DateTime.now()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,15 +59,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Card(
-              child: TextField(
-                controller: _inputController,
-                decoration: InputDecoration(
-                  hintText: 'Write something ...',
-                  labelText: 'Title',
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _inputController,
+                      decoration: InputDecoration(
+                        hintText: 'Write something ...',
+                        labelText: 'Title',
+                      ),
+                      onChanged: (value) {
+                        setState(() {}); // we need to trigger changing state
+                      },
+                    ),
+                    Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: _addTaskToList,
+                          child: Text('Add to list'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                onChanged: (value) {
-                  setState(() {}); // we need to trigger changing state
-                },
               ),
             ),
           ],
