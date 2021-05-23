@@ -27,7 +27,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var myText = '';
+  var _inputController = TextEditingController();
+  var myString = '';
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _inputController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,19 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Card(
               child: TextField(
+                controller: _inputController,
                 decoration: InputDecoration(
                   hintText: 'Write something ...',
                   labelText: 'Title',
                 ),
                 onChanged: (value) {
-                  setState(() {
-                    myText = value;
-                  });
+                  setState(() {}); // we need to trigger changing state
                 },
               ),
             ),
             Text(
-              myText,
+              _inputController.text,
             ),
           ],
         ),
