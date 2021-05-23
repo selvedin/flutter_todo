@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './models/task.dart';
+import './widgets/task_item.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var _inputController = TextEditingController();
   List<Task> _tasks = [];
   var myString = '';
-  String _errorText = null;
+  String _errorText;
 
   @override
   void initState() {
@@ -107,6 +108,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            Container(
+              child: Column(
+                children: [
+                  ..._tasks
+                      .map((task) => TaskItem(
+                          title: task.title,
+                          createdAt: task.createdAt,
+                          isFinished: task.isFinished))
+                      .toList()
+                ],
+              ),
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
