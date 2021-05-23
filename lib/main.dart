@@ -27,14 +27,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var myText = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Text('Test'),
+      body: Container(
+        child: Column(
+          children: [
+            Card(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Write something ...',
+                  labelText: 'Title',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    myText = value;
+                  });
+                },
+              ),
+            ),
+            Text(
+              myText,
+            ),
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
