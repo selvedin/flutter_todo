@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/task.dart';
+import '../widgets/app_drawer.dart';
 import '../widgets/task_item.dart';
 import '../screens/finished_tasks_screen.dart';
 
@@ -155,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]),
         ],
       ),
+      drawer: AppDrawer(),
       body: Container(
         child: Column(
           children: [
