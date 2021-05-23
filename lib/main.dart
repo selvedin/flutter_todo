@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './models/task.dart';
 import './widgets/task_item.dart';
@@ -34,13 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Task> _tasks = [];
   var myString = '';
   String _errorText;
+  String _createdAt = DateFormat("dd-MM-yyyy hh:mm a").format(DateTime.now());
 
   @override
   void initState() {
-    for (int i = 0; i < 30; i++) {
-      _tasks.add(Task('Task number ${i + 1}',
-          DateTime.now().add(Duration(minutes: i + 1))));
-    }
     super.initState();
   }
 
@@ -48,6 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     _inputController.dispose();
     super.dispose();
+  }
+
+  void _generateTasks() {
+    for (int i = 0; i < 30; i++) {
+      _tasks.add(Task('Task number ${i + 1}',
+          DateTime.now().add(Duration(minutes: i + 1))));
+    }
   }
 
   void _addTaskToList() {
@@ -68,6 +73,19 @@ class _MyHomePageState extends State<MyHomePage> {
   void _printTasks() {
     _tasks.forEach((task) {
       print(task.title);
+    });
+  }
+
+  void _getDate() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now().add(Duration(days: 30)))
+        .then((value) {
+      setState(() {
+        _createdAt = DateFormat("dd-MM-yyyy hh:mm a").format(value);
+      });
     });
   }
 
@@ -96,6 +114,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       onChanged: (value) {
                         setState(() {}); // we need to trigger changing state
                       },
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(_createdAt),
+                        IconButton(
+                          icon: Icon(Icons.calendar_today_outlined),
+                          onPressed: _getDate,
+                        ),
+                      ],
                     ),
                     Divider(),
                     Row(
