@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/tasks.dart';
 import 'package:intl/intl.dart';
 
 class TaskCard extends StatefulWidget {
-  final Function addTaskToList;
-
-  TaskCard({this.addTaskToList});
-
   @override
   _TaskCardState createState() => _TaskCardState();
 }
@@ -82,7 +80,8 @@ class _TaskCardState extends State<TaskCard> {
                   TextButton(
                     onPressed: () {
                       if (_inputController.text.isNotEmpty) {
-                        widget.addTaskToList(_inputController.text, _createdAt);
+                        Provider.of<Tasks>(context, listen: false)
+                            .addTask(_inputController.text, _createdAt, false);
                         setState(() {
                           _errorText = null;
                           _inputController.text = '';

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/tasks.dart';
 
-import '../models/task.dart';
 import '../widgets/task_item.dart';
+import '../models/task.dart';
 
 class FinishedTasksScreen extends StatelessWidget {
   static const routeName = "/finished-tasks";
-  final List<Task> tasks;
-  FinishedTasksScreen(this.tasks);
 
   @override
   Widget build(BuildContext context) {
+    final tasks = Provider.of<Tasks>(context).tasks;
+    final finished = [...tasks.where((el) => el.isFinished == true)];
+    print(finished.length);
     return Scaffold(
       appBar: AppBar(
         title: Text('Finished tasks'),
@@ -24,15 +27,15 @@ class FinishedTasksScreen extends StatelessWidget {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        child: tasks.length > 1
+        child: finished.length > 0
             ? ListView.builder(
                 padding: const EdgeInsets.all(8),
-                itemCount: tasks.length,
+                itemCount: finished.length,
                 itemBuilder: (_, index) => TaskItem(
-                  id: tasks[index].id,
-                  title: tasks[index].title,
-                  createdAt: tasks[index].createdAt,
-                  isFinished: tasks[index].isFinished,
+                  id: finished[index].id,
+                  title: finished[index].title,
+                  createdAt: finished[index].createdAt,
+                  isFinished: finished[index].isFinished,
                 ),
               )
             : Container(

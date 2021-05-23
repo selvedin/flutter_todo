@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../models/task.dart';
+import '../providers/tasks.dart';
+
 import '../widgets/task_item.dart';
 
 class TasksList extends StatefulWidget {
-  const TasksList({
-    Key key,
-    @required List<Task> tasks,
-    @required setTasksDone,
-  })  : _tasks = tasks,
-        _setTaskDone = setTasksDone,
-        super(key: key);
-
-  final List<Task> _tasks;
-  final Function _setTaskDone;
-
   @override
   _TasksListState createState() => _TasksListState();
 }
@@ -57,7 +48,8 @@ class _TasksListState extends State<TasksList> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: widget._tasks
+      children: Provider.of<Tasks>(context)
+          .tasks
           .map((task) => Dismissible(
                 key: ValueKey(task.id),
                 background: Container(color: Theme.of(context).errorColor),
@@ -66,17 +58,14 @@ class _TasksListState extends State<TasksList> {
                   return confirmTaskDeleting();
                 },
                 onDismissed: (_) {
-                  setState(() {
-                    widget._tasks.removeWhere((el) => el.id == task.id);
-                  });
+                  Provider.of<Tasks>(context, listen: false)
+                      .removeTask(task.id);
                 },
                 child: TaskItem(
-                  id: task.id,
-                  title: task.title,
-                  createdAt: task.createdAt,
-                  isFinished: task.isFinished,
-                  setTaskDone: widget._setTaskDone,
-                ),
+                    id: task.id,
+                    title: task.title,
+                    createdAt: task.createdAt,
+                    isFinished: task.isFinished),
               ))
           .toList(),
     );

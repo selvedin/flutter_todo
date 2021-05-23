@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/tasks.dart';
+
 import 'package:intl/intl.dart';
 
 class TaskItem extends StatelessWidget {
@@ -6,14 +10,12 @@ class TaskItem extends StatelessWidget {
   final String title;
   final DateTime createdAt;
   final bool isFinished;
-  Function setTaskDone;
 
   TaskItem({
     @required this.id,
     @required this.title,
     @required this.createdAt,
     @required this.isFinished,
-    this.setTaskDone,
   });
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,9 @@ class TaskItem extends StatelessWidget {
               ? Icon(Icons.check)
               : IconButton(
                   icon: Icon(Icons.done),
-                  onPressed: () => setTaskDone(id),
+                  onPressed: () {
+                    Provider.of<Tasks>(context, listen: false).setTaskDone(id);
+                  },
                   color: Colors.green,
                 ),
         ],
