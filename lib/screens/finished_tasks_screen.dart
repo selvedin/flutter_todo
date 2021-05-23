@@ -4,6 +4,7 @@ import '../models/task.dart';
 import '../widgets/task_item.dart';
 
 class FinishedTasksScreen extends StatelessWidget {
+  static const routeName = "/finished-tasks";
   final List<Task> tasks;
   FinishedTasksScreen(this.tasks);
 

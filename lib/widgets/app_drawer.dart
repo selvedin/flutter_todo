@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/finished_tasks_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -14,7 +15,13 @@ class AppDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text("Finished Tasks"),
+                InkWell(
+                  child: Text("Finished Tasks"),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(FinishedTasksScreen.routeName);
+                  },
+                ),
                 Icon(Icons.done_all),
               ],
             ),
