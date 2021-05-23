@@ -9,17 +9,20 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             createdAt.toString(),
           ),
-          Text(
-            isFinished ? 'Yes' : 'No',
-          ),
+          Icon(isFinished ? Icons.check : Icons.timer),
         ],
       ),
     );
