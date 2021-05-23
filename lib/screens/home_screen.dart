@@ -96,6 +96,22 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          PopupMenuButton(
+              onSelected: (selectedValue) {
+                print(selectedValue);
+              },
+              itemBuilder: (_) => [
+                    PopupMenuItem(
+                      child: Text('Finished Tasks'),
+                      value: 0,
+                    ),
+                    PopupMenuItem(
+                      child: Text('Deleted Tasks'),
+                      value: 1,
+                    ),
+                  ]),
+        ],
       ),
       body: Container(
         child: Column(
