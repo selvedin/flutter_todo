@@ -46,7 +46,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addTaskToList() {
-    _tasks.add(Task(_inputController.text, DateTime.now()));
+    if (_inputController.text.isNotEmpty) {
+      _tasks.add(Task(_inputController.text, DateTime.now()));
+    }
+    _printTasks();
+  }
+
+  void _printTasks() {
+    _tasks.forEach((task) {
+      print(task.title);
+    });
   }
 
   @override
