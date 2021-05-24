@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import './providers/tasks.dart';
 
 import './screens/finished_tasks_screen.dart';
+import './screens/camera_screen.dart';
 
 import './screens/home_screen.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'My To-Do App'),
         routes: {
           FinishedTasksScreen.routeName: (ctx) => FinishedTasksScreen(),
+          CameraScreen.routeName: (ctx) => CameraScreen(),
         },
       ),
     );

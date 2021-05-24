@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/camera_screen.dart';
 import '../screens/finished_tasks_screen.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -26,7 +27,24 @@ class AppDrawer extends StatelessWidget {
                 Icon(Icons.done_all),
               ],
             ),
-          )
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                InkWell(
+                  child: Text("Camera"),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      CameraScreen.routeName,
+                    );
+                  },
+                ),
+                Icon(Icons.done_all),
+              ],
+            ),
+          ),
         ],
       ),
     );
