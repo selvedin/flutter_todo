@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/finished_tasks_screen.dart';
 
 class MyPopup extends StatelessWidget {
+  const MyPopup();
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(

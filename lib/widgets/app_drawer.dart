@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/finished_tasks_screen.dart';
 
 class AppDrawer extends StatelessWidget {
+  const AppDrawer();
   @override
   Widget build(BuildContext context) {
     return Drawer(

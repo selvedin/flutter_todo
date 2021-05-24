@@ -12,7 +12,7 @@ class TaskItem extends StatelessWidget {
   final bool isFinished;
   final String priority;
 
-  TaskItem(
+  const TaskItem(
       {@required this.id,
       @required this.title,
       @required this.createdAt,
